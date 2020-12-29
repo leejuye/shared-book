@@ -4,3 +4,6 @@
 
 ### Client
 * 기술 스택: React.js, Antd, Typescript
+
+### Server
+* 기술 스택: Java, Spring
