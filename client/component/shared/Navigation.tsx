@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
@@ -12,9 +12,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-				screenOptions={({ route }) => ({    
-					// {focused,color,position}
-					tabBarLabel: ({focused})=>focused&&<Text style={{color: '#fff', marginLeft: 20, fontWeight: '600'}}>{route.name}</Text>,
+				screenOptions={({ route }) => ({
+					tabBarLabel: ({focused})=>focused&&<Text style={styles.label}>{route.name}</Text>,
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name={iconName[route.name as keyof typeof iconName]} size={size} color={color} />;
           },
@@ -23,7 +22,7 @@ export default function App() {
 					activeTintColor: '#fff', 
 					inactiveTintColor: 'gray',
 					activeBackgroundColor: '#4f3c75',
-					tabStyle: {borderRadius:50, margin: 5, padding: 5 },
+					tabStyle: styles.tab,
 					labelPosition: "beside-icon"
 				}}>
         <Tab.Screen name="Home" component={Home} />
@@ -41,3 +40,10 @@ const iconName = {
 	My: 'person-outline',
 	Friend: 'heart-outline'
 }
+
+const styles = StyleSheet.create({
+  label: {
+		color: '#fff', marginLeft: 20, fontWeight: '600'
+	},
+	tab: {borderRadius:50, margin: 5, padding: 5 }
+});
