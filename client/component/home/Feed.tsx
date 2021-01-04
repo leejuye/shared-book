@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 	userName: {
 		marginLeft: 10,
 		fontWeight: '600',
-		fontSize: 20,
+		fontSize: 15,
 	},
 
 	photo: {

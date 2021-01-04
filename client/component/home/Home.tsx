@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, View, Text, ScrollView } from "react-native";
 
 import Feed from './Feed'
+import BookClub from './BookClub'
 
 const DATA = [
   {id: 1, userName: "leejuye", text: "떡국 먹고 싶다.", photo: 'https://i.ytimg.com/vi/EfRGTCyk6nU/maxresdefault.jpg', liked: true},
@@ -12,16 +13,48 @@ const DATA = [
   {id: 6, userName: "orihehe", text: "text test 3"},
 ]
 
+const BOOK_DATA = [
+  {
+    id: 1,
+    image: 'http://image.kyobobook.co.kr/images/book/xlarge/796/x9791188331796.jpg',
+    title: '돈의 속성',
+    dday: 5
+  },
+  {
+    id: 2,
+    image: 'http://image.kyobobook.co.kr/images/book/xlarge/809/x9791190030809.jpg',
+    title: '건강하게 나이 든다는 것',
+    dday: 0
+  },
+  {
+    id: 3,
+    image: 'http://image.kyobobook.co.kr/images/book/xlarge/493/x9788931021493.jpg',
+    title: '여자를 위해 대신 생각해줄 필요는 없다',
+    dday: 2
+  },
+]
+
 
 export default function Home() {
-  const renderItem = ({item}:any) => <Feed {...item}/>
+  const renderBookClub = ({item}:any) => <BookClub {...item}/>
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-      />
+      <ScrollView>
+      <View>
+        <Text style={styles.title}>New Book Clubs</Text>
+        <FlatList
+          data={BOOK_DATA}
+          renderItem={renderBookClub}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
+      </View>
+      <View>
+        <Text style={styles.title}>Feed</Text>
+        {DATA.map((props:any) => <Feed {...props}/>)}
+      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -32,4 +65,9 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
     backgroundColor: '#fff'
   },
+  title: {
+    margin: 10,
+    fontSize: 20,
+    fontWeight: '600'
+  }
 });
