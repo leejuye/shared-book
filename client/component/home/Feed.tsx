@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { Ionicons } from '@expo/vector-icons'
 
 import TmpAvatar from '../../assets/tmpAvatar.png'
 
@@ -13,11 +14,14 @@ interface Props {
 	book?: { title: string, author?: string, id: string },
 	photo?: string
 	text?: string
+	liked: boolean,
+	date: string,
+	onPressHeart: (id:number)=>void
 }
 
 export default function Feed(props: Props) {
-	const {id, userName, userPhoto, book, photo, text} = props
-
+	const {id, userName, userPhoto, book, photo, text, liked, date,
+		onPressHeart} = props
   return (
     <View style={styles.container}>
 			<View style={styles.userInfo}>
@@ -32,7 +36,16 @@ export default function Feed(props: Props) {
 						source={{uri: photo }}
 					/>
 				}
-				<Text style={styles.content}>{text}</Text>
+
+				<View style={styles.content}>
+					<Ionicons 
+						name={liked?"heart":"heart-outline"}
+						color={liked?'#f16f54':'grey'}
+						size={20}
+						onPress={()=>onPressHeart(id)} />
+					<Text>{date}</Text>
+					<Text>{text}</Text>
+				</View>
 			</View>
     </View>
   );
@@ -66,6 +79,6 @@ const styles = StyleSheet.create({
 		marginBottom: 10
 	},
 	content: {
-		marginTop: 10
+		marginTop: 2
 	}
 });
