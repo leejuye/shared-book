@@ -1,19 +1,105 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, 
+  View, Text, ScrollView, Button } from "react-native";
+import { Ionicons } from '@expo/vector-icons'
+
+import Feed from './Feed'
+import BookClub from './BookClub'
+
 
 export default function Home() {
+  const [feedList, setFeedList] = useState(DATA)
+  const renderBookClub = ({item}:any) => <BookClub {...item} />
+
+  
+  const onPressHeart =(id:number)=>{
+    setFeedList(feedList.map((feed:any)=>(
+      feed.id === id? {...feed, liked: !feed.liked}:feed)))
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.buttonContainer}>
+        <View style={styles.button}>
+          <Ionicons 
+            name="search-outline"
+            color="#fff"
+            size={20}
+            onPress={()=>console.log('test')} />
+        </View>
+      </View>
+      <View>
+        <Text style={styles.title}>New Book Clubs</Text>
+        <FlatList
+          data={BOOK_DATA}
+          renderItem={renderBookClub}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
+      </View>
+      <View>
+        <Text style={styles.title}>Feed</Text>
+        {feedList.map((props:any) => <Feed {...props}  onPressHeart={onPressHeart} />)}
+      </View>
+      </ScrollView>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: '#fff'
+  },
+  buttonContainer: {
+    height: 40,
+    alignItems: 'flex-end'
+  },
+  button: {
+    height: '100%',
+    width: 50,
+    backgroundColor: '#4f3c75',
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    margin: 10,
+    fontSize: 20,
+    fontWeight: '600'
+  }
 });
+
+
+const DATA = [
+  {id: 1, date:'2021.01.04', userName: "leejuye", text: "떡국 먹고 싶다.", photo: 'https://i.ytimg.com/vi/EfRGTCyk6nU/maxresdefault.jpg', liked: true},
+  {id: 2, date:'2021.01.04', userName: "joy", text: "생각 난 영단어가 tree여서 tree를 쳐서 사진을 따왔다. 뭔가 긴 글로 테스트해봐야하는데 긴 글이 생각이 안나네. 진짜 긴 글이여야한느데 텔미 텔미 테테테테테테텔미 누난 너무 예뻐 미쳐 베이벱 베이벱 베이벱", photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Linde_von_linn.jpg/285px-Linde_von_linn.jpg'},
+  {id: 3, date:'2021.01.04', userName: "orihehe", text: "text test 3", liked: true, bookmark: true},
+  {id: 4, date:'2021.01.04', userName: "orihehe", text: "text test 3", bookmark: true},
+  {id: 5, date:'2021.01.04', userName: "orihehe", text: "text test 3"},
+  {id: 6, date:'2021.01.04', userName: "orihehe", text: "text test 3"},
+]
+
+const BOOK_DATA = [
+  {
+    id: 1,
+    image: 'http://image.kyobobook.co.kr/images/book/xlarge/796/x9791188331796.jpg',
+    title: '돈의 속성',
+    dday: 5
+  },
+  {
+    id: 2,
+    image: 'http://image.kyobobook.co.kr/images/book/xlarge/809/x9791190030809.jpg',
+    title: '건강하게 나이 든다는 것',
+    dday: 0
+  },
+  {
+    id: 3,
+    image: 'http://image.kyobobook.co.kr/images/book/xlarge/493/x9788931021493.jpg',
+    title: '여자를 위해 대신 생각해줄 필요는 없다',
+    dday: 2
+  },
+]

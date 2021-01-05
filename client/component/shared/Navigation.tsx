@@ -21,7 +21,7 @@ export default function App() {
 				tabBarOptions={{
 					activeTintColor: '#fff', 
 					inactiveTintColor: 'gray',
-					activeBackgroundColor: '#4f3c75',
+					activeBackgroundColor: '#f4b45d',
 					tabStyle: styles.tab,
 					labelPosition: "beside-icon"
 				}}>
