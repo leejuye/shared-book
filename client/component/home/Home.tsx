@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, View, Text, ScrollView } from "react-native";
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, 
+  View, Text, ScrollView, Button } from "react-native";
+import { Ionicons } from '@expo/vector-icons'
 
 import Feed from './Feed'
 import BookClub from './BookClub'
@@ -41,6 +43,15 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
+      <View style={styles.buttonContainer}>
+        <View style={styles.button}>
+          <Ionicons 
+            name="search-outline"
+            color="#fff"
+            size={20}
+            onPress={()=>console.log('test')} />
+        </View>
+      </View>
       <View>
         <Text style={styles.title}>New Book Clubs</Text>
         <FlatList
@@ -64,6 +75,19 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
     backgroundColor: '#fff'
+  },
+  buttonContainer: {
+    height: 40,
+    alignItems: 'flex-end'
+  },
+  button: {
+    height: '100%',
+    width: 50,
+    backgroundColor: '#4f3c75',
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     margin: 10,
