@@ -3,7 +3,7 @@
 * 익명의 모르는 사람들이랑 독서모임
 
 ### Client
-* 기술 스택: React-Native, Antd, Typescript
+* 기술 스택: React-Native, Typescript
 
 ### Server
 * 기술 스택: Java, Spring
